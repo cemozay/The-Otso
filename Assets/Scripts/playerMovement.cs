@@ -6,8 +6,10 @@ public class playerMovement : MonoBehaviour
 {
     private Rigidbody rb;
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float fallSpeed = 10f;
     DialogManager dialogManager;
     Vector3 moveDirection;
+
     void Awake() 
     {
         rb = GetComponent<Rigidbody>();
@@ -33,6 +35,9 @@ public class playerMovement : MonoBehaviour
             moveDirection = Vector3.zero;
         }
 
-        rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime;
+        if (!dialogManager.dialogStarted)
+        {
+            rb.AddForce(Vector3.down * fallSpeed, ForceMode.Acceleration);
+        }
     }
 }
