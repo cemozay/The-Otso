@@ -16,19 +16,23 @@ public class playerMovement : MonoBehaviour
 
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        moveDirection = new Vector3 (horizontal, 0f , vertical).normalized;
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
+
+        if (moveDirection.magnitude >= 0.1f)
+        {
+            transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+        }
     }
 
-    void FixedUpdate() 
+    void FixedUpdate()
     {
         if (dialogManager.dialogStarted)
         {
-            rb.velocity = new Vector3 (0 , 0 , 0);
-            return;
+            moveDirection = Vector3.zero;
         }
 
-        transform.Translate(moveDirection * moveSpeed * Time.fixedDeltaTime);
+        rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime;
     }
 }
