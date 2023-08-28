@@ -1,43 +1,65 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 public class playerMovement : MonoBehaviour
 {
-    private Rigidbody rb;
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float fallSpeed = 10f;
-    DialogManager dialogManager;
-    Vector3 moveDirection;
+    InputController input;
+    NavMeshAgent agent;
 
-    void Awake() 
+    [Header("Movement")]
+    [SerializeField] ParticleSystem clickEffect;
+    [SerializeField] LayerMask clickableLayers;
+
+    float lookRotationSpeed = 10f;
+
+    private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
-        dialogManager = FindObjectOfType<DialogManager>().GetComponent<DialogManager>();
+        agent = GetComponent<NavMeshAgent>();
+
+        input = new InputController();
+        AssignInputs();    
     }
 
-    void Update()
+    private void Update() 
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
+        RotateToDirection();
+    }
 
-        if (moveDirection.magnitude >= 0.1f)
+    void RotateToDirection()
+    {
+        Vector3 direction = (agent.destination - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * lookRotationSpeed);
+    }
+
+    void AssignInputs()
+    {
+        input.Main.Move.performed += ctx => ClickToMove();
+    }
+
+    void ClickToMove() 
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, clickableLayers))
         {
-            transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+            agent.destination = hit.point;
+            if (clickEffect != null)
+            {
+                Instantiate(clickEffect, hit.point += new Vector3(0, 0.1f, 0), clickEffect.transform.rotation);
+            }
         }
     }
 
-    void FixedUpdate()
+    private void OnEnable() 
     {
-        if (dialogManager.dialogStarted)
-        {
-            moveDirection = Vector3.zero;
-        }
+        input.Enable();
+    }
 
-        if (!dialogManager.dialogStarted)
-        {
-            rb.AddForce(Vector3.down * fallSpeed, ForceMode.Acceleration);
-        }
+    private void OnDisable() 
+    {
+        input.Disable();
     }
 }
