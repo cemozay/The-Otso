@@ -12,6 +12,7 @@ public class playerMovement : MonoBehaviour
     [Header("Movement")]
     [SerializeField] ParticleSystem clickEffect;
     [SerializeField] LayerMask clickableLayers;
+    [SerializeField] float deleteDuration = 1f;
 
     float lookRotationSpeed = 10f;
 
@@ -26,6 +27,7 @@ public class playerMovement : MonoBehaviour
     private void Update() 
     {
         RotateToDirection();
+        InteractObject();
     }
 
     void RotateToDirection()
@@ -48,7 +50,8 @@ public class playerMovement : MonoBehaviour
             agent.destination = hit.point;
             if (clickEffect != null)
             {
-                Instantiate(clickEffect, hit.point += new Vector3(0, 0.1f, 0), clickEffect.transform.rotation);
+                GameObject clickObject = Instantiate(clickEffect, hit.point += new Vector3(0, 0.1f, 0), clickEffect.transform.rotation).gameObject;
+                Destroy(clickObject, deleteDuration);
             }
         }
     }
@@ -61,5 +64,29 @@ public class playerMovement : MonoBehaviour
     private void OnDisable() 
     {
         input.Disable();
+    }
+
+    void InteractObject()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            float interactRange = 1f;
+            Collider [] colliders = Physics.OverlapSphere(transform.position, interactRange);
+            foreach (Collider collider in colliders)
+            {
+                InteractibleObject interactible = collider.gameObject.GetComponent<InteractibleObject>();
+                if (interactible != null)
+                {
+                    collider.gameObject.transform.parent = transform;
+                }
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        float interactRange = 1f;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, interactRange);
     }
 }
