@@ -4,13 +4,5 @@ using UnityEngine;
 
 public class gameManager : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
+    public static bool playerIsInteracting = false;
 }

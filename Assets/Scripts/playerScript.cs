@@ -18,6 +18,7 @@ public class playerScript : MonoBehaviour
 
     [Header("Interact")]
     [SerializeField] float interactRangeAmount = 1f;
+    private bool isInteracting = false;
 
     private void Awake()
     {
@@ -75,22 +76,31 @@ public class playerScript : MonoBehaviour
 
     void playerInteract()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !InteractibleNPC.interactingWithNPC) //NPC ile etkileşimde olmaması gerek
         {
-            Vector3 interactRange = transform.localScale + new Vector3(interactRangeAmount, 0, interactRangeAmount);
-            
-            Collider [] colliders = Physics.OverlapBox(transform.position, interactRange / 2);
-            foreach (Collider collider in colliders)
+            if (!gameManager.playerIsInteracting) //Objelerle etkileşime girilmiyorsa
             {
-                if (collider.gameObject.TryGetComponent(out InteractibleObject interactibleObj))
+                Vector3 interactRange = transform.localScale + new Vector3(interactRangeAmount, 0, interactRangeAmount);
+            
+                Collider [] colliders = Physics.OverlapBox(transform.position, interactRange / 2);
+                foreach (Collider collider in colliders)
                 {
-                    collider.gameObject.transform.parent = transform;
+                    if (collider.gameObject.TryGetComponent(out IInteractable interactableObj))
+                    {
+                        interactableObj.Interact();
+                        gameManager.playerIsInteracting = true;
+                    }
+                    
+                    if (collider.gameObject.TryGetComponent(out InteractibleNPC npc))
+                    {
+                        npc.StartDialog();
+                        gameManager.playerIsInteracting = true;
+                    }
                 }
-                
-                if (collider.gameObject.TryGetComponent(out InteractibleNPC npc) && !InteractibleNPC.interactingWithNPC)
-                {
-                    npc.StartDialog();
-                }
+            }
+            else
+            {
+                gameManager.playerIsInteracting = false;
             }
         }
     }
