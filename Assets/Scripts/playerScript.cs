@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class playerMovement : MonoBehaviour
+public class playerScript : MonoBehaviour
 {
     InputController input;
     NavMeshAgent agent;
@@ -12,22 +13,25 @@ public class playerMovement : MonoBehaviour
     [Header("Movement")]
     [SerializeField] ParticleSystem clickEffect;
     [SerializeField] LayerMask clickableLayers;
-    [SerializeField] float deleteDuration = 1f;
-
+    [SerializeField] float deleteDelay = 1f;
     float lookRotationSpeed = 10f;
+
+    [Header("Interact")]
+    [SerializeField] float interactRangeAmount = 1f;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
 
         input = new InputController();
-        AssignInputs();    
+
+        AssignInputs();
     }
 
     private void Update() 
     {
         RotateToDirection();
-        InteractObject();
+        playerInteract();
     }
 
     void RotateToDirection()
@@ -44,6 +48,9 @@ public class playerMovement : MonoBehaviour
 
     void ClickToMove() 
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+        
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, clickableLayers))
         {
@@ -51,33 +58,38 @@ public class playerMovement : MonoBehaviour
             if (clickEffect != null)
             {
                 GameObject clickObject = Instantiate(clickEffect, hit.point += new Vector3(0, 0.1f, 0), clickEffect.transform.rotation).gameObject;
-                Destroy(clickObject, deleteDuration);
+                Destroy(clickObject, deleteDelay);
             }
         }
     }
 
-    private void OnEnable() 
+    void OnEnable() 
     {
         input.Enable();
     }
 
-    private void OnDisable() 
+    void OnDisable() 
     {
         input.Disable();
     }
 
-    void InteractObject()
+    void playerInteract()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            float interactRange = 1f;
-            Collider [] colliders = Physics.OverlapSphere(transform.position, interactRange);
+            Vector3 interactRange = transform.localScale + new Vector3(interactRangeAmount, 0, interactRangeAmount);
+            
+            Collider [] colliders = Physics.OverlapBox(transform.position, interactRange / 2);
             foreach (Collider collider in colliders)
             {
-                InteractibleObject interactible = collider.gameObject.GetComponent<InteractibleObject>();
-                if (interactible != null)
+                if (collider.gameObject.TryGetComponent(out InteractibleObject interactibleObj))
                 {
                     collider.gameObject.transform.parent = transform;
+                }
+                
+                if (collider.gameObject.TryGetComponent(out InteractibleNPC npc) && !InteractibleNPC.interactingWithNPC)
+                {
+                    npc.StartDialog();
                 }
             }
         }
@@ -85,8 +97,8 @@ public class playerMovement : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        float interactRange = 1f;
+        Vector3 interactRange = transform.localScale + new Vector3(interactRangeAmount, 0, interactRangeAmount);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, interactRange);
+        Gizmos.DrawWireCube(transform.position, interactRange / 2);
     }
 }

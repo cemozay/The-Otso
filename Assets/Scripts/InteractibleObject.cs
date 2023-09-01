@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class InteractibleObject : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] float rotateSpeed = 10f;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        //Bütün objeler için ayrı fonksiyon oluşturabiliriz
+        if (gameObject.name == "Mirror")
+        {
+            RotateMirror();
+        }
+    }
+
+    void RotateMirror()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        transform.Rotate(Vector3.up, horizontalInput * Time.deltaTime * rotateSpeed);
     }
 }

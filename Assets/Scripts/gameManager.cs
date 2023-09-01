@@ -9,11 +9,8 @@ public class gameManager : MonoBehaviour
         
     }
 
-
     void Update()
     {
         
     }
-
-    //Create BubbleText
 }
