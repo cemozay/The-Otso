@@ -22,6 +22,7 @@ public class Mirror : MonoBehaviour, IInteractable
         {
             transform.parent = null;
             interactedWithPlayer = false;
+            gameManager.playerIsInteracting = false;
         }
     }
 

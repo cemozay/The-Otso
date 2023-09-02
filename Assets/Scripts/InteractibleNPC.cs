@@ -49,11 +49,12 @@ public class InteractibleNPC : MonoBehaviour
         interactingWithNPC = false;
         dialogIndex = 0;
         dialogUI.SetActive(false);
+        gameManager.playerIsInteracting = false;
     }
 
-    void SkipDialog()
+    /* void SkipDialog()
     {
         dialogUI.SetActive(true);
         dialogUI.SetActive(false);
-    }
+    } */
 }

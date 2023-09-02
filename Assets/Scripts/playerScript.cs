@@ -78,7 +78,7 @@ public class playerScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && !InteractibleNPC.interactingWithNPC) //NPC ile etkileşimde olmaması gerek
         {
-            if (!gameManager.playerIsInteracting) //Objelerle etkileşime girilmiyorsa
+            if (!gameManager.playerIsInteracting) //Objelerle etkileşimde olmamalı
             {
                 Vector3 interactRange = transform.localScale + new Vector3(interactRangeAmount, 0, interactRangeAmount);
             
@@ -97,10 +97,6 @@ public class playerScript : MonoBehaviour
                         gameManager.playerIsInteracting = true;
                     }
                 }
-            }
-            else
-            {
-                gameManager.playerIsInteracting = false;
             }
         }
     }
