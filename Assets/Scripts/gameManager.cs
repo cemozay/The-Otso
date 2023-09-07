@@ -4,5 +4,4 @@ using UnityEngine;
 
 public class gameManager : MonoBehaviour
 {
-    public static bool playerIsInteracting = false;
 }

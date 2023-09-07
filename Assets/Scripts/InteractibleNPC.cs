@@ -4,52 +4,60 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class InteractibleNPC : MonoBehaviour
+public class InteractibleNPC : MonoBehaviour, IInteractable
 {
     public GameObject dialogUI;
     public TextMeshProUGUI dialogText;
     public string [] dialogArray;
     private int dialogIndex = 0;
-    public static bool interactingWithNPC = false;
+    private bool interactedWithPlayer = false;
 
     void Start() 
     {
         dialogUI.SetActive(false);
     }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && interactingWithNPC)
+        if (!interactedWithPlayer) return;
+
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             NextDialog();
     }
 
-    public void StartDialog()
+    void StartDialog()
     {
-        interactingWithNPC = true;
+        dialogIndex = 0;
         dialogUI.SetActive(true);
+        NextDialog();
     }
-
     
     void NextDialog()
     {
         if (dialogIndex < dialogArray.Length)
         {
             dialogText.text = dialogArray[dialogIndex];
+            dialogIndex++;
         }
         else
         {
             EndDialog();
-            return;
         }
-
-        dialogIndex++;
     }
 
     void EndDialog()
     {
-        interactingWithNPC = false;
-        dialogIndex = 0;
+        interactedWithPlayer = false;
         dialogUI.SetActive(false);
-        gameManager.playerIsInteracting = false;
+    }
+
+    public void Interact()
+    {
+        if (!interactedWithPlayer)
+        {
+            interactedWithPlayer = true;
+            StartDialog();
+        }
     }
 
     /* void SkipDialog()

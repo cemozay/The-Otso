@@ -18,7 +18,6 @@ public class playerScript : MonoBehaviour
 
     [Header("Interact")]
     [SerializeField] float interactRangeAmount = 1f;
-    private bool isInteracting = false;
 
     private void Awake()
     {
@@ -76,27 +75,18 @@ public class playerScript : MonoBehaviour
 
     void playerInteract()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !InteractibleNPC.interactingWithNPC) //NPC ile etkileşimde olmaması gerek
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (!gameManager.playerIsInteracting) //Objelerle etkileşimde olmamalı
+            Vector3 interactRange = transform.localScale + new Vector3(interactRangeAmount, 0, interactRangeAmount);
+        
+            Collider [] colliders = Physics.OverlapBox(transform.position, interactRange / 2);
+            foreach (Collider collider in colliders)
             {
-                Vector3 interactRange = transform.localScale + new Vector3(interactRangeAmount, 0, interactRangeAmount);
-            
-                Collider [] colliders = Physics.OverlapBox(transform.position, interactRange / 2);
-                foreach (Collider collider in colliders)
+                if (collider.gameObject.TryGetComponent(out IInteractable interactableObj))
                 {
-                    if (collider.gameObject.TryGetComponent(out IInteractable interactableObj))
-                    {
-                        interactableObj.Interact();
-                        gameManager.playerIsInteracting = true;
-                    }
-                    
-                    if (collider.gameObject.TryGetComponent(out InteractibleNPC npc))
-                    {
-                        npc.StartDialog();
-                        gameManager.playerIsInteracting = true;
-                    }
+                    interactableObj.Interact();
                 }
+                break;
             }
         }
     }

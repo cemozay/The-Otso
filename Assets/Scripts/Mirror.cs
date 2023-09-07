@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Mirror : MonoBehaviour, IInteractable
 {
     [SerializeField] float rotateSpeed = 170f;
     private Transform playerTransform;
+    private Transform handTransform;
     private bool interactedWithPlayer = false;
 
     private void Start()
     {
-        playerTransform = GameObject.FindWithTag("Player").transform;
+        handTransform = GameObject.FindWithTag("Hand").transform;
     }
     void Update()
     {
@@ -18,25 +20,31 @@ public class Mirror : MonoBehaviour, IInteractable
             
         RotateMirror();
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.G))
         {
             transform.parent = null;
             interactedWithPlayer = false;
-            gameManager.playerIsInteracting = false;
         }
     }
 
     void RotateMirror()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        transform.Rotate(Vector3.up, horizontalInput * Time.deltaTime * rotateSpeed);
+        Transform childTransform = transform.GetChild(0);
+
+        /* float rotX = childTransform.eulerAngles.y;
+        float _rotX = Mathf.Clamp(rotX, 45, 135);
+        childTransform.eulerAngles = new Vector3(_rotX, childTransform.eulerAngles.y, childTransform.eulerAngles.z); */
+
+        float verticalInput = Input.GetAxis("Vertical");
+        childTransform.Rotate(Vector3.left, verticalInput * Time.deltaTime * rotateSpeed);
     }
 
     public void Interact()
     {
         if (!interactedWithPlayer)
         {
-            transform.parent = playerTransform;
+            transform.DOMove(handTransform.position, 0.7f);
+            transform.parent = handTransform;
             interactedWithPlayer = true;
         }
     }
