@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class LaserReflect : MonoBehaviour
 {
@@ -52,7 +53,7 @@ public class LaserReflect : MonoBehaviour
                     {
                         if (hit.collider.gameObject.TryGetComponent(out MeshRenderer meshRenderer))
                         {
-                            meshRenderer.enabled = true;
+                            meshRenderer.material.DOFade(1f, 2f);
                         }
                     }
                     break;
