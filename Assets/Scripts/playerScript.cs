@@ -14,7 +14,7 @@ public class playerScript : MonoBehaviour
     [SerializeField] ParticleSystem clickEffect;
     [SerializeField] LayerMask clickableLayers;
     [SerializeField] float deleteDelay = 1f;
-    float lookRotationSpeed = 10f;
+    private float lookRotationSpeed = 10f;
 
     [Header("Interact")]
     [SerializeField] float interactRangeAmount = 1f;
@@ -30,15 +30,12 @@ public class playerScript : MonoBehaviour
 
     private void Update() 
     {
-        RotateToDirection();
         playerInteract();
-    }
 
-    void RotateToDirection()
-    {
-        Vector3 direction = (agent.destination - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * lookRotationSpeed);
+        if (agent.velocity.magnitude > 0)
+        {
+            RotateToDirection(agent.destination);
+        }
     }
 
     void AssignInputs()
@@ -73,6 +70,13 @@ public class playerScript : MonoBehaviour
         input.Disable();
     }
 
+    void RotateToDirection(Vector3 targetPosition)
+    {
+        Vector3 lookAtPoint = new Vector3(targetPosition.x, transform.position.y, targetPosition.z);
+        Quaternion targetRotation = Quaternion.LookRotation(lookAtPoint - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, lookRotationSpeed * Time.deltaTime);
+    }
+
     void playerInteract()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -85,8 +89,8 @@ public class playerScript : MonoBehaviour
                 if (collider.gameObject.TryGetComponent(out IInteractable interactableObj))
                 {
                     interactableObj.Interact();
+                    break;
                 }
-                break;
             }
         }
     }
