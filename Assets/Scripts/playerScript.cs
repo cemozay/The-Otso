@@ -18,6 +18,7 @@ public class playerScript : MonoBehaviour
 
     [Header("Interact")]
     [SerializeField] float interactRangeAmount = 1f;
+    private Animator animator;
 
     private void Awake()
     {
@@ -26,16 +27,13 @@ public class playerScript : MonoBehaviour
         input = new InputController();
 
         AssignInputs();
+        animator = GetComponent<Animator>();
     }
 
     private void Update() 
     {
         playerInteract();
 
-        if (agent.velocity.magnitude > 0)
-        {
-            RotateToDirection(agent.destination);
-        }
     }
 
     void AssignInputs()
@@ -56,8 +54,12 @@ public class playerScript : MonoBehaviour
             {
                 GameObject clickObject = Instantiate(clickEffect, hit.point += new Vector3(0, 0.1f, 0), clickEffect.transform.rotation).gameObject;
                 Destroy(clickObject, deleteDelay);
+
             }
+
+            
         }
+
     }
 
     void OnEnable() 
