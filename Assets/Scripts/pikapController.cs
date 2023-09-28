@@ -13,11 +13,8 @@ public class pikapController : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        if (isPlaying)
-        {
-            audioSource.Play();
-            
-        }
+
+        audioSource.Play();
 
         diskController = diskObject.GetComponent<diskController>();
     }
@@ -31,13 +28,9 @@ public class pikapController : MonoBehaviour
                 audioSource.Pause();
                 diskController.StopRotation();
             }
-            else
-            {
-                audioSource.UnPause();
-                diskController.StartRotation();
-            }
-            isPlaying = !isPlaying;
+            
             StartCoroutine(PlayDelayed(10f));
+            isPlaying = !isPlaying;
         }
     }
 
