@@ -24,6 +24,7 @@ public class Mirror : MonoBehaviour, IInteractable
         {
             transform.parent = null;
             interactedWithPlayer = false;
+            gameManager.isInteracted = false;
         }
     }
 
@@ -31,9 +32,9 @@ public class Mirror : MonoBehaviour, IInteractable
     {
         Transform childTransform = transform.GetChild(0);
 
-        /* float rotX = childTransform.eulerAngles.y;
+        float rotX = childTransform.eulerAngles.y;
         float _rotX = Mathf.Clamp(rotX, 45, 135);
-        childTransform.eulerAngles = new Vector3(_rotX, childTransform.eulerAngles.y, childTransform.eulerAngles.z); */
+        childTransform.eulerAngles = new Vector3(_rotX, childTransform.eulerAngles.y, childTransform.eulerAngles.z);
 
         float verticalInput = Input.GetAxis("Vertical");
         childTransform.Rotate(Vector3.left, verticalInput * Time.deltaTime * rotateSpeed);
@@ -44,6 +45,7 @@ public class Mirror : MonoBehaviour, IInteractable
         if (!interactedWithPlayer)
         {
             transform.DOMove(handTransform.position, 0.7f);
+            gameManager.isInteracted = false;
             transform.parent = handTransform;
             interactedWithPlayer = true;
         }

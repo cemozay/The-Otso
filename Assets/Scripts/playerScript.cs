@@ -34,6 +34,26 @@ public class playerScript : MonoBehaviour
     {
         playerInteract();
 
+        if (agent.velocity.magnitude > 0)
+        {
+            animator.SetBool("is_walking", true);
+            RotateToDirection(agent.destination);
+        }
+        else
+        {
+            animator.SetBool("is_walking", false);
+        }
+
+        if (gameManager.isInteracted)
+        {
+            Debug.Log("asdasd");
+            agent.isStopped = true;
+        }
+        else
+        {
+            Debug.Log("123123");
+            agent.isStopped = false;
+        }
     }
 
     void AssignInputs()
@@ -54,10 +74,7 @@ public class playerScript : MonoBehaviour
             {
                 GameObject clickObject = Instantiate(clickEffect, hit.point += new Vector3(0, 0.1f, 0), clickEffect.transform.rotation).gameObject;
                 Destroy(clickObject, deleteDelay);
-
             }
-
-            
         }
 
     }
@@ -81,7 +98,7 @@ public class playerScript : MonoBehaviour
 
     void playerInteract()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !gameManager.isInteracted)
         {
             Vector3 interactRange = transform.localScale + new Vector3(interactRangeAmount, 0, interactRangeAmount);
         
@@ -90,6 +107,7 @@ public class playerScript : MonoBehaviour
             {
                 if (collider.gameObject.TryGetComponent(out IInteractable interactableObj))
                 {
+                    gameManager.isInteracted = true;
                     interactableObj.Interact();
                     break;
                 }

@@ -19,15 +19,14 @@ public class InteractibleNPC : MonoBehaviour, IInteractable
     private int dialogIndex = 0;
     private bool interactedWithPlayer = false;
 
-    private TextMeshProUGUI dialogTextA; // Text objesi Panel A içinde
-    private TextMeshProUGUI dialogTextB; // Text objesi Panel B içinde
+    private TextMeshProUGUI dialogTextA;
+    private TextMeshProUGUI dialogTextB;
 
     void Start() 
     {
         dialogUIA.SetActive(false);
         dialogUIB.SetActive(false);
 
-        // Panel A ve Panel B içindeki Text objelerini bul
         dialogTextA = dialogUIA.GetComponentInChildren<TextMeshProUGUI>();
         dialogTextB = dialogUIB.GetComponentInChildren<TextMeshProUGUI>();
     }
@@ -82,6 +81,7 @@ public class InteractibleNPC : MonoBehaviour, IInteractable
 
     void EndDialog()
     {
+        gameManager.isInteracted = false;
         interactedWithPlayer = false;
         dialogUIA.SetActive(false);
         dialogUIB.SetActive(false);
