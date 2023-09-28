@@ -51,10 +51,7 @@ public class LaserReflect : MonoBehaviour
                 {
                     if (hit.collider.gameObject.name == "WallPass")
                     {
-                        if (hit.collider.gameObject.TryGetComponent(out MeshRenderer meshRenderer))
-                        {
-                            meshRenderer.material.DOFade(1f, 2f);
-                        }
+                        hit.collider.gameObject.GetComponent<Transform>().GetChild(0).gameObject.SetActive(true);
                     }
                     break;
                 }

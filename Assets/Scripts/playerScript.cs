@@ -46,12 +46,10 @@ public class playerScript : MonoBehaviour
 
         if (gameManager.isInteracted)
         {
-            Debug.Log("asdasd");
             agent.isStopped = true;
         }
         else
         {
-            Debug.Log("123123");
             agent.isStopped = false;
         }
     }
