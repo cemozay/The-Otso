@@ -29,7 +29,7 @@ public class pikapController : MonoBehaviour
                 diskController.StopRotation();
             }
             
-            StartCoroutine(PlayDelayed(10f));
+            StartCoroutine(PlayDelayed(5f));
             isPlaying = !isPlaying;
         }
     }
