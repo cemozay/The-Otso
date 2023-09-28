@@ -4,17 +4,32 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+[Serializable]
+public class Dialog
+{
+    public string name;
+    public string text;
+}
+
 public class InteractibleNPC : MonoBehaviour, IInteractable
 {
-    public GameObject dialogUI;
-    public TextMeshProUGUI dialogText;
-    public string [] dialogArray;
+    public GameObject dialogUIA; // Panel A
+    public GameObject dialogUIB; // Panel B
+    public Dialog[] dialogArray;
     private int dialogIndex = 0;
     private bool interactedWithPlayer = false;
 
+    private TextMeshProUGUI dialogTextA; // Text objesi Panel A içinde
+    private TextMeshProUGUI dialogTextB; // Text objesi Panel B içinde
+
     void Start() 
     {
-        dialogUI.SetActive(false);
+        dialogUIA.SetActive(false);
+        dialogUIB.SetActive(false);
+
+        // Panel A ve Panel B içindeki Text objelerini bul
+        dialogTextA = dialogUIA.GetComponentInChildren<TextMeshProUGUI>();
+        dialogTextB = dialogUIB.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     void Update()
@@ -28,7 +43,8 @@ public class InteractibleNPC : MonoBehaviour, IInteractable
     void StartDialog()
     {
         dialogIndex = 0;
-        dialogUI.SetActive(true);
+        dialogUIA.SetActive(false);
+        dialogUIB.SetActive(false);
         NextDialog();
     }
     
@@ -36,7 +52,26 @@ public class InteractibleNPC : MonoBehaviour, IInteractable
     {
         if (dialogIndex < dialogArray.Length)
         {
-            dialogText.text = dialogArray[dialogIndex];
+            Dialog currentDialog = dialogArray[dialogIndex];
+            
+            if (currentDialog.name == "a")
+            {
+                dialogUIA.SetActive(true);
+                dialogUIB.SetActive(false);
+                dialogTextA.text = currentDialog.text;
+            }
+            else if (currentDialog.name == "b")
+            {
+                dialogUIA.SetActive(false);
+                dialogUIB.SetActive(true);
+                dialogTextB.text = currentDialog.text;
+            }
+            else
+            {
+                dialogUIA.SetActive(false);
+                dialogUIB.SetActive(false);
+            }
+
             dialogIndex++;
         }
         else
@@ -48,7 +83,8 @@ public class InteractibleNPC : MonoBehaviour, IInteractable
     void EndDialog()
     {
         interactedWithPlayer = false;
-        dialogUI.SetActive(false);
+        dialogUIA.SetActive(false);
+        dialogUIB.SetActive(false);
     }
 
     public void Interact()
@@ -59,10 +95,4 @@ public class InteractibleNPC : MonoBehaviour, IInteractable
             StartDialog();
         }
     }
-
-    /* void SkipDialog()
-    {
-        dialogUI.SetActive(true);
-        dialogUI.SetActive(false);
-    } */
 }
