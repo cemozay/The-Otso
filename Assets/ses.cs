@@ -51,6 +51,7 @@ public class ses : MonoBehaviour, IInteractable
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            Lamba.SetActive(false);
             envanter.SetActive(true);
             cam.transform.rotation = Quaternion.Euler(45f, 135f, 0f);
             transform.position = eski;

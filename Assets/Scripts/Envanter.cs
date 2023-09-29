@@ -14,7 +14,7 @@ public class Envanter : MonoBehaviour, IInteractable
         Image ýmage = mektup.GetComponent<Image>();
         ýmage.color = Color.white;
 
-
+        gameManager.isInteracted = false;
         Destroy(kilit);
         Destroy(gameObject);
 
