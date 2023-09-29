@@ -2943,10 +2943,10 @@ Transform:
   - {fileID: 1022682883}
   - {fileID: 214881376}
   - {fileID: 1253701971}
-  - {fileID: 1988137504}
   - {fileID: 1168514390}
   - {fileID: 690137602}
   - {fileID: 308492560}
+  - {fileID: 1988137504}
   - {fileID: 716332174}
   - {fileID: 584388607}
   - {fileID: 2141935022}
@@ -9082,7 +9082,7 @@ GameObject:
   - component: {fileID: 584388609}
   - component: {fileID: 584388608}
   m_Layer: 0
-  m_Name: Lily (2)
+  m_Name: NPC3
   m_TagString: Npc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9117,15 +9117,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogUIA: {fileID: 936123164}
   dialogUIB: {fileID: 114989019}
+  dialogUIC: {fileID: 936123164}
+  dialogUID: {fileID: 936123164}
   dialogArray:
   - name: a
-    text: asdasd
+    text: 'They really suit each other so well. '
   - name: b
-    text: asdasdasdasd123123123
+    text: 'Would you believe it? I think I got a bit emotional. '
   - name: a
-    text: fgbfgbfg
+    text: 'Are you ready to meet them? '
+  - name: b
+    text: No.
   - name: a
-    text: 3123123
+    text: Just come to the ballroom.
 --- !u!65 &584388609
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11759,7 +11763,7 @@ GameObject:
   - component: {fileID: 716332176}
   - component: {fileID: 716332175}
   m_Layer: 0
-  m_Name: Lily (1)
+  m_Name: NPC2
   m_TagString: Npc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11794,15 +11798,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogUIA: {fileID: 936123164}
   dialogUIB: {fileID: 114989019}
+  dialogUIC: {fileID: 936123164}
+  dialogUID: {fileID: 936123164}
   dialogArray:
   - name: a
-    text: asdasd
+    text: It's surprising how you have such nice thoughts about women... I didn't
+      know you were a 30-year-old incel.
   - name: b
-    text: asdasdasdasd123123123
+    text: 'An incel? Oh, I think I''m going to vomit. That''s the heaviest insult
+      I''ve heard. Look, I adore women. '
+  - name: b
+    text: Well, I guess I used to adore. You're amazing beings, but why all this
+      complexity?
   - name: a
-    text: fgbfgbfg
+    text: You being narrow-minded doesn't prove that we're complex. For example,
+      did you understand what you saw?
+  - name: b
+    text: What else can I understand apart from dramas written in the diary?
   - name: a
-    text: 3123123
+    text: 'There is a code, you dumbass! Find it and open that locked chest. '
+  - name: a
+    text: I can't come every time! Rick, use your brain a bit.
+  - name: b
+    text: 'Oh my God... You become really sexy when you''re angry. '
+  - name: a
+    text: 'I''m sapiosexual, Rick. Just finish this job quickly and focus on regaining
+      your memory. '
+  - name: a
+    text: Or else you don't have a chance with me.
 --- !u!65 &716332176
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17117,7 +17140,7 @@ GameObject:
   - component: {fileID: 1062466797}
   - component: {fileID: 1062466796}
   m_Layer: 0
-  m_Name: Lily (4)
+  m_Name: NPC5
   m_TagString: Npc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17145,13 +17168,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062466794}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8304c10686099884489dcf4405b10c89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dialogUIA: {fileID: 936123164}
   dialogUIB: {fileID: 114989019}
+  dialogUIC: {fileID: 936123164}
+  dialogUID: {fileID: 0}
   dialogArray:
   - name: a
     text: asdasd
@@ -29460,7 +29485,7 @@ GameObject:
   - component: {fileID: 1988137501}
   - component: {fileID: 1988137505}
   m_Layer: 0
-  m_Name: Lily
+  m_Name: NPC
   m_TagString: Npc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29566,15 +29591,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogUIA: {fileID: 936123164}
   dialogUIB: {fileID: 114989019}
+  dialogUIC: {fileID: 936123164}
+  dialogUID: {fileID: 936123164}
   dialogArray:
   - name: a
-    text: asdasd
+    text: 'Well, look at you go. I never thought you''d make it this far. '
   - name: b
-    text: asdasdasdasd123123123
+    text: 'You underestimate me, Lily. What is this place? '
   - name: a
-    text: fgbfgbfg
+    text: 'A mansion idiot. Never seen one? '
+  - name: b
+    text: It looks like a gothic big-boobed anime girl threw up in here.
   - name: a
-    text: 3123123
+    text: 'Well, Theoretically, yes.. '
+  - name: b
+    text: So we're filming "The Phantom of the Mansion" right now.
+  - name: a
+    text: Cut it out with the teasing! Don't you see how romantic is this place?
+      It makes me feel different.
+  - name: a
+    text: I feel enchanted every time, but I'm way more excited now.
+  - name: b
+    text: Why is that?
+  - name: a
+    text: Because it's you this time. You're the one getting me all hyped up. There's
+      an indescribable feeling inside me.
+  - name: a
+    text: 'Like... '
+  - name: a
+    text: 'it''s meant to happen this time. Do you feel it too? '
+  - name: b
+    text: I feel something, but not sure if it's the same as what you're feeling.
+  - name: a
+    text: Pervert.
+  - name: a
+    text: 'Anyway, let''s get back to our topic. You really need to be careful here. '
+  - name: a
+    text: 'A tragic love happened in this place. '
+  - name: b
+    text: I'M REALLY SAD.
 --- !u!1 &1989092199
 GameObject:
   m_ObjectHideFlags: 0
@@ -31010,7 +31065,7 @@ GameObject:
   - component: {fileID: 2141935024}
   - component: {fileID: 2141935023}
   m_Layer: 0
-  m_Name: Lily (3)
+  m_Name: NPC4
   m_TagString: Npc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31045,15 +31100,97 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogUIA: {fileID: 936123164}
   dialogUIB: {fileID: 114989019}
+  dialogUIC: {fileID: 34978854}
+  dialogUID: {fileID: 1853178818}
   dialogArray:
   - name: a
-    text: asdasd
+    text: 'Isabella, it''s time. '
+  - name: d
+    text: I know. We've been feeling it.
   - name: b
-    text: asdasdasdasd123123123
+    text: 'Love, huh... Honestly, I don''t really believe in love. '
+  - name: c
+    text: 'Not surprised. '
   - name: a
-    text: fgbfgbfg
+    text: 'What''s that supposed to mean? '
+  - name: c
+    text: ...
   - name: a
-    text: 3123123
+    text: 'Could you be a little more polite? After all this, you still don''t believe
+      in love?  '
+  - name: a
+    text: 'What''s your problem? '
+  - name: b
+    text: 'Well... Actually, I do... '
+  - name: d
+    text: 'You''re just masking yourself.  '
+  - name: b
+    text: I-
+  - name: a
+    text: Anyway, we need to finish our job now. We have a long way ahead. Come on,
+      Isabella.
+  - name: b
+    text: 'Wait! I have questions. '
+  - name: d
+    text: 'Bring it on. '
+  - name: b
+    text: I. just wonder... Why?
+  - name: d
+    text: Why I killed myself? Why I caused the reason of Isaac's death?
+  - name: d
+    text: Why I didn't shut my heart's voice and live with the man i don't love?
+  - name: b
+    text: Well.. Yeah, why Isabella? Is it really worth it?
+  - name: d
+    text: Yeah it is.
+  - name: c
+    text: We experienced the most meaningful of deaths.
+  - name: c
+    text: We are twin flames who found each other at the wrong time, in the wrong
+      place so we burned together.
+  - name: a
+    text: Come on Isabella.
+  - name: d
+    text: Are you ready my love?
+  - name: c
+    text: I've been preparing for this my whole life.
+  - name: d
+    text: Together to eternity?
+  - name: c
+    text: 'Together to eternity. But first, I want to fulfill our greatest dream. '
+  - name: d
+    text: We will immortalize our love here into eternity.
+  - name: c
+    text: I, Isaac, do solemnly take you, Isabella, to be my cherished wife. With
+      all the honor within my heart, I vow to stand by your side in this meaningful
+      end.
+  - name: c
+    text: I dedicate my days to cherishing you, loving you, and building a life of
+      splendor and joy together.
+  - name: c
+    text: With this ring on my neck, I seal my commitment to you, a token of my love
+      that shall shine as bright as the sun, even through the darkest of nights.
+  - name: d
+    text: I, Isabella, do wholeheartedly take you, Isaac, to be my cherished husband.
+  - name: d
+    text: In the presence of all who bear witness, I pledge to stand by your side
+      through at this meaningful end.
+  - name: d
+    text: In the presence of all who bear witness, I pledge to stand by your side
+      through at this meaningful end.
+  - name: d
+    text: With the last beat of my heart, I vow to honor, respect, and love you.
+  - name: d
+    text: This ring on my neck is a testament to my devotion, a circle unbroken that
+      symbolizes a love that knows no end.
+  - name: b
+    text: 'In the name of the Father, the Son, and the Holy Spirit- '
+  - name: a
+    text: Rick!
+  - name: b
+    text: What? I just wanted to complete this moment.
+  - name: a
+    text: Keep it to yourself!
 --- !u!65 &2141935024
 BoxCollider:
   m_ObjectHideFlags: 0
