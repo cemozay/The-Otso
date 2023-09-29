@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class sos : MonoBehaviour
+public class Lock : MonoBehaviour
 {
     void Update()
     {
