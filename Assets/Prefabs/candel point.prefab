@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3486723338250901054
+--- !u!1 &8199990383417150830
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,44 +8,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2922514597021000135}
-  - component: {fileID: 8833829026817393222}
+  - component: {fileID: 6937082957567434834}
+  - component: {fileID: 582298851804987161}
   m_Layer: 0
-  m_Name: lamba point
+  m_Name: candel point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2922514597021000135
+--- !u!4 &6937082957567434834
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3486723338250901054}
+  m_GameObject: {fileID: 8199990383417150830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -58.193, y: 7.036, z: 33.822}
+  m_LocalPosition: {x: -59, y: 2.56, z: 42.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!108 &8833829026817393222
+--- !u!108 &582298851804987161
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3486723338250901054}
+  m_GameObject: {fileID: 8199990383417150830}
   m_Enabled: 1
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.6257565, b: 0.3160377, a: 1}
-  m_Intensity: 3
-  m_Range: 5
+  m_Color: {r: 0.8392157, g: 0.3372549, b: 0.09019608, a: 1}
+  m_Intensity: 1.8
+  m_Range: 7
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
