@@ -9,10 +9,12 @@ public class Mirror : MonoBehaviour, IInteractable
     private Transform playerTransform;
     private Transform handTransform;
     private bool interactedWithPlayer = false;
+    private Animator animator;
 
     private void Start()
     {
         handTransform = GameObject.FindWithTag("Hand").transform;
+        animator = GetComponent<Animator>();
     }
     void Update()
     {
@@ -25,6 +27,7 @@ public class Mirror : MonoBehaviour, IInteractable
             transform.parent = null;
             interactedWithPlayer = false;
             gameManager.isInteracted = false;
+            animator.SetBool("is_holding", false);
         }
     }
 
@@ -45,6 +48,7 @@ public class Mirror : MonoBehaviour, IInteractable
             });
             transform.parent = handTransform;
             interactedWithPlayer = true;
+            animator.SetBool("is_holding", true);
         }
     }
 
