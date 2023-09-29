@@ -9,6 +9,7 @@ public class LaserReflect : MonoBehaviour
     [SerializeField] LayerMask layerMask;
     [SerializeField] float defaultLength = 50;
     [SerializeField] int numOfReflections = 2;
+    [SerializeField] GameObject zattirizort;
 
     private LineRenderer lr;
     private RaycastHit hit;
@@ -51,6 +52,7 @@ public class LaserReflect : MonoBehaviour
                 {
                     if (hit.collider.gameObject.name == "WallPass")
                     {
+                        zattirizort.SetActive(false);
                         hit.collider.gameObject.GetComponent<Transform>().GetChild(0).gameObject.SetActive(true);
                     }
                     break;

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 
 [Serializable]
 public class Dialog
@@ -20,12 +21,17 @@ public class InteractibleNPC : MonoBehaviour, IInteractable
     public Dialog[] dialogArray;
     private int dialogIndex = 0;
     private bool interactedWithPlayer = false;
+    public bool teleportNow = false;
 
     private TextMeshProUGUI dialogTextA;
     private TextMeshProUGUI dialogTextB;
     private TextMeshProUGUI dialogTextC;
     private TextMeshProUGUI dialogTextD;
 
+    [SerializeField] GameObject destroyLilyObj;
+    [SerializeField] GameObject playerObject;
+    [SerializeField] GameObject teleportObject;
+    private NavMeshAgent navMeshAgent;
     void Start() 
     {
         dialogUIA.SetActive(false);
@@ -37,6 +43,11 @@ public class InteractibleNPC : MonoBehaviour, IInteractable
         dialogTextB = dialogUIB.GetComponentInChildren<TextMeshProUGUI>();
         dialogTextC = dialogUIC.GetComponentInChildren<TextMeshProUGUI>();
         dialogTextD = dialogUID.GetComponentInChildren<TextMeshProUGUI>();
+
+        if (playerObject != null)
+        {
+            navMeshAgent = playerObject.GetComponent<NavMeshAgent>();
+        }
     }
 
     void Update()
@@ -99,12 +110,26 @@ public class InteractibleNPC : MonoBehaviour, IInteractable
 
     void EndDialog()
     {
+        if (teleportNow)
+        {
+            navMeshAgent.enabled = false;
+            playerObject.transform.position = teleportObject.transform.position;
+            navMeshAgent.enabled = true;
+        }
+
         gameManager.isInteracted = false;
         interactedWithPlayer = false;
         dialogUIA.SetActive(false);
         dialogUIB.SetActive(false);
         dialogUIC.SetActive(false);
         dialogUID.SetActive(false);
+
+        if (destroyLilyObj != null)
+        {
+            destroyLilyObj.SetActive(false);
+        }
+
+        gameObject.SetActive(false);
     }
 
     public void Interact()
